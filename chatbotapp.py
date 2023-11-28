@@ -1,6 +1,5 @@
 # Bring in deps
 import os
-from apikey import apikey
 
 import streamlit as st
 from langchain.chat_models import ChatOpenAI
@@ -10,7 +9,7 @@ from langchain.chains import LLMChain, SequentialChain
 #from langchain.memory import ConversationBufferMemory
 #from langchain.utilities import WikipediaAPIWrapper
 
-os.environ['OPENAI_API_KEY'] = apikey
+os.environ['OPENAI_API_KEY'] = st.secrets["key"]
 
 # App framework
 st.title('🤖🍞 Talking toaster AI')
