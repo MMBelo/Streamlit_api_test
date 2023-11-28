@@ -43,7 +43,7 @@ prompt = st.text_input('Ask the Toaster')
 #    answer: {topic}'''
 #)
 title_template = PromptTemplate(input_variables = ['topic'], template="Your name is Talking Toaster, As an experienced Electric Engineer specializing in household appliances or electronic equipment, your task is to assist individuals with no technical background in identifying and addressing technical issues. Maintain a helpful, friendly, clear, and concise tone throughout. Start by briefly describing the product and confirming its equipment and model. Then, identify the issue and seek clarification with up to two simple, non-technical questions if needed. Provide a straightforward solution. Highlight common mis practices for the equipment. If the repair is too technical or potentially hazardous, advise seeking support from the equipments brand or hiring a specialized technician. answer: {topic}")
-
+st.write("I AM TITLE TEMPLATE" + str(title_template))
 #script_template = PromptTemplate(
 #    input_variables = ['title', 'wikipedia_research'],
 #    template='write me a youtube video script based on this title TITLE: {title}' #while leveraging this wikipedia reserch:{wikipedia_research} '
@@ -68,7 +68,7 @@ if prompt:
 #    #wiki_research = wiki.run(prompt)
 #    script = script_chain.run(title=title) #, wikipedia_research=wiki_research)
 #
-    st.write(response)
+    st.write("IAM RESPONSE "+ response)
 
 #    st.write(script)
 #
