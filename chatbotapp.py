@@ -2,11 +2,11 @@
 import os
 from apikey import apikey
 
-from openai import OpenAI
 import streamlit as st
+from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain #, SequentialChain
+from langchain.chains import LLMChain, SequentialChain
 #from langchain.memory import ConversationBufferMemory
 #from langchain.utilities import WikipediaAPIWrapper
 
