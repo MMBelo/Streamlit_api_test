@@ -6,7 +6,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain, SequentialChain
-#from langchain.memory import ConversationBufferMemory
+from langchain.memory import ConversationBufferMemory
 #from langchain.utilities import WikipediaAPIWrapper
 
 os.environ['OPENAI_API_KEY'] = st.secrets["key"]
@@ -27,12 +27,13 @@ title_template = PromptTemplate(
 #)
 
 # Memory
-#title_memory = ConversationBufferMemory(input_key='topic', memory_key='chat_history')
+title_memory = ConversationBufferMemory(input_key='topic', memory_key='chat_history')
 #script_memory = ConversationBufferMemory(input_key='title', memory_key='chat_history')
 
 
 # Llms
-llm = OpenAI(temperature=0.9)
+llm = OpenAI(model="gpt-3.5-turbo", temperature=0.9)
+
 title_chain = LLMChain(llm=llm, prompt=title_template, verbose=True)#, output_key='title', memory=title_memory)
 #script_chain = LLMChain(llm=llm, prompt=script_template, verbose=True, output_key='script', memory=script_memory)
 
