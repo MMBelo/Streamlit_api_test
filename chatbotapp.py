@@ -2,6 +2,7 @@
 import os
 from apikey import apikey
 
+from openai import OpenAI
 import streamlit as st
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
