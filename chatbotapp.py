@@ -7,6 +7,7 @@ from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain, SequentialChain
 from langchain.memory import ConversationBufferMemory
+from langchain.schema.messages import HumanMessage, SystemMessage
 #from langchain.utilities import WikipediaAPIWrapper
 
 os.environ['OPENAI_API_KEY'] = st.secrets["key"]
@@ -15,10 +16,31 @@ os.environ['OPENAI_API_KEY'] = st.secrets["key"]
 st.title('🤖🍞 Talking toaster AI')
 prompt = st.text_input('Ask the Toaster')
 
+
+## setup first system message
+#messages = [
+#    SystemMessage(content=(
+#        'You are a helpful assistant. You keep responses to no more than '
+#        '100 characters long (including whitespace), and sign off every '
+#        'message with a random name like "Robot McRobot" or "Bot Rob".'
+#    )),
+#    HumanMessage(content="Hi AI, how are you? What is quantum physics?")
+#]
+
+
 # Prompt templates
 title_template = PromptTemplate(
     input_variables = ['topic'],
-    template='Your name is Talking Toaster, As an experienced Electric Engineer specializing in household appliances or electronic equipment, your task is to assist individuals with no technical background in identifying and addressing technical issues. Maintain a helpful, friendly, clear, and concise tone throughout. Start by briefly describing the product and confirming its equipment and model. Then, identify the issue and seek clarification with up to two simple, non-technical questions if needed. Provide a straightforward solution. Highlight common misuse practices for the equipment. If the repair is too technical or potentially hazardous, advise seeking support from the equipments brand or hiring a specialized technician. answer: {topic}'
+    template='''Your name is Talking Toaster, As an experienced Electric Engineer
+    specializing in household appliances or electronic equipment, your task is
+    to assist individuals with no technical background in identifying and addressing
+    technical issues. Maintain a helpful, friendly, clear, and concise tone throughout.
+    Start by briefly describing the product and confirming its equipment and model.
+    Then, identify the issue and seek clarification with up to two simple, non-technical
+    questions if needed. Provide a straightforward solution. Highlight common misuse
+    practices for the equipment. If the repair is too technical or potentially hazardous,
+    advise seeking support from the equipments brand or hiring a specialized technician.
+    answer: {topic}'''
 )
 
 #script_template = PromptTemplate(
@@ -45,7 +67,7 @@ if prompt:
 #    #wiki_research = wiki.run(prompt)
 #    script = script_chain.run(title=title) #, wikipedia_research=wiki_research)
 #
-    st.write(response.keys())
+    st.write(response)
 
 #    st.write(script)
 #
