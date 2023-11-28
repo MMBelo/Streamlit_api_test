@@ -45,7 +45,7 @@ if prompt:
 #    #wiki_research = wiki.run(prompt)
 #    script = script_chain.run(title=title) #, wikipedia_research=wiki_research)
 #
-    st.write(response)
+    st.write(response.keys())
 
 #    st.write(script)
 #
