@@ -3,10 +3,12 @@ import streamlit as st
 import openai
 from openai import OpenAI
 
-client = OpenAI(
-    # defaults to os.environ.get("OPENAI_API_KEY")
-    api_key= "st.secrets["key1"]",
-)
+client = OpenAI( api_key=st.secrets["key1"] )
+
+#client = OpenAI(
+#    # defaults to os.environ.get("OPENAI_API_KEY")
+#    api_key= "st.secrets["key1"]",
+#)
 # Set your OpenAI API key
 #os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
 # App framework
