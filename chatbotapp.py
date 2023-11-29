@@ -67,7 +67,7 @@ chat.invoke(messages)
 #        st.text('Talking Toaster:', response)
 
 # Start the chat
-chat()
+#chat()
 
 
 
