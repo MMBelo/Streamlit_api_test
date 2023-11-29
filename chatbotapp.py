@@ -9,7 +9,7 @@ from langchain.chains import LLMChain, SequentialChain
 from langchain.memory import ConversationBufferMemory
 
 
-#from langchain.schema.messages import HumanMessage, SystemMessage
+from langchain.schema.messages import HumanMessage, SystemMessage
 from langchain import LangChain
 
 #from langchain.utilities import WikipediaAPIWrapper
@@ -20,40 +20,51 @@ os.environ['OPENAI_API_KEY'] = st.secrets["key"]
 st.title('🤖🍞 Talking toaster AI')
 prompt = st.text_input('Ask the Toaster')
 
+messages = [
+    SystemMessage(content="You're a helpful assistant"),
+    HumanMessage(content="What is the purpose of model regularization?"),
+]
+
+
+chat = ChatOpenAI()
+chat.invoke(messages)
 
 
 
-# Create LangChain instance
-knowledge_base = {
-    "greetings": ["hello", "hi", "hey", "howdy"],
-    "farewells": ["goodbye", "bye", "see you"],
-    "questions": {
-        "who": "I am a talking toaster AI.",
-        "what": "I can assist you with technical issues related to household appliances and electronic equipment.",
-        "how": "Feel free to ask me any questions about your appliances, and I'll do my best to help!",
-    },
-}
+
+## Create LangChain instance
+#knowledge_base = {
+#    "greetings": ["hello", "hi", "hey", "howdy"],
+#    "farewells": ["goodbye", "bye", "see you"],
+#    "questions": {
+#        "who": "I am a talking toaster AI.",
+#        "what": "I can assist you with technical issues related to household appliances and electronic equipment.",
+#        "how": "Feel free to ask me any questions about your appliances, and I'll do my best to help!",
+#    },
+#}
+#
+#
+#chatbot = LangChain(knowledge_base)
 
 
-chatbot = LangChain(knowledge_base)
 
-# Conversation Memory
-title_memory = ConversationBufferMemory(input_key='topic', memory_key='chat_history')
-
-# Function to process user input and display responses
-def chat():
-    st.text('Talking Toaster: Hello! Ask me about your household appliances.')
-    while True:
-        user_input = st.text_input('You:')
-        if not user_input:
-            continue
-
-        if user_input.lower() == "exit":
-            st.text('Talking Toaster: Goodbye!')
-            break
-
-        response = chatbot.process(user_input)
-        st.text('Talking Toaster:', response)
+## Conversation Memory
+#title_memory = ConversationBufferMemory(input_key='topic', memory_key='chat_history')
+#
+## Function to process user input and display responses
+#def chat():
+#    st.text('Talking Toaster: Hello! Ask me about your household appliances.')
+#    while True:
+#        user_input = st.text_input('You:')
+#        if not user_input:
+#            continue
+#
+#        if user_input.lower() == "exit":
+#            st.text('Talking Toaster: Goodbye!')
+#            break
+#
+#        response = chatbot.process(user_input)
+#        st.text('Talking Toaster:', response)
 
 # Start the chat
 chat()
