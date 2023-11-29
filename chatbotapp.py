@@ -10,7 +10,7 @@ from langchain.memory import ConversationBufferMemory
 
 
 #from langchain.schema.messages import HumanMessage, SystemMessage
-from langchain import LangChain ## added
+#from langchain import LangChain ## added
 
 #from langchain.utilities import WikipediaAPIWrapper
 
