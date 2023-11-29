@@ -2,7 +2,7 @@ import os
 import streamlit as st
 import openai
 # Set your OpenAI API key
-os.environ['OPENAI_API_KEY'] = "your-api-key"
+os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
 # App framework
 st.title('🤖🍞  Talking toaster AI')
 prompt = st.text_input('Ask the Toaster')
