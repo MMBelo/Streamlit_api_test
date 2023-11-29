@@ -1,16 +1,10 @@
 import os
 import streamlit as st
-import openai
 from openai import OpenAI
+
 
 client = OpenAI( api_key=st.secrets["key1"] )
 
-#client = OpenAI(
-#    # defaults to os.environ.get("OPENAI_API_KEY")
-#    api_key= "st.secrets["key1"]",
-#)
-# Set your OpenAI API key
-#os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
 # App framework
 st.title('🤖🍞  Talking toaster AI')
 prompt = st.text_input('Ask the Toaster')
@@ -33,13 +27,11 @@ def generate_response(prompt, conversation_history):
         try:
             # Combine the conversation history with the prompt template
             combined_history = "\n".join(conversation_history)
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",  # Updated model name
-                messages=[
+            response = client.chat.completions.create(model="gpt-3.5-turbo",  # Updated model name
+            messages=[
                     {"role": "system", "content": "You are a helpful AI."},
                     {"role": "user", "content": combined_history + "\n" + prompt_template.format(topic=prompt)}
-                ]
-            )
+                ])
             # Add AI response to the conversation history
             conversation_history.append(f"AI: {response['choices'][0]['message']['content']}")
             # Keep only the last 6 entries in the conversation history

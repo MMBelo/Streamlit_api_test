@@ -1,6 +1,8 @@
 import os
 import streamlit as st
-import openai
+from openai import OpenAI
+
+client = OpenAI()
 
 # Set your OpenAI API key
 os.environ['OPENAI_API_KEY'] = st.secrets["key"]
@@ -31,11 +33,9 @@ def generate_response(prompt, conversation_history):
         try:
             # Combine the conversation history with the prompt template
             combined_history = "\n".join(conversation_history)
-            response = openai.Completion.create(
-                engine="GPT-3.5 Turbo",  # You can choose a different engine if needed
-                prompt=combined_history + "\n" + prompt_template.format(topic=prompt),
-                max_tokens=150,  # Adjust as needed
-            )
+            response = client.completions.create(engine="GPT-3.5 Turbo",  # You can choose a different engine if needed
+            prompt=combined_history + "\n" + prompt_template.format(topic=prompt),
+            max_tokens=150)
 
             # Add AI response to the conversation history
             conversation_history.append(f"AI: {response.choices[0].text.strip()}")
