@@ -5,7 +5,7 @@ from openai import OpenAI
 
 client = OpenAI(
     # defaults to os.environ.get("OPENAI_API_KEY")
-    api_key= st.secrets["key1"],
+    api_key= "st.secrets["key1"]",
 )
 # Set your OpenAI API key
 #os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
