@@ -1,10 +1,12 @@
 import os
 import streamlit as st
+
 from openai import OpenAI
+client = OpenAI( api_key=st.secrets["key1"] )
 
-client = OpenAI()
+#client = OpenAI()
 
-os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
+#os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
 
 # App framework
 st.title('🤖🍞  Talking toaster AI')
