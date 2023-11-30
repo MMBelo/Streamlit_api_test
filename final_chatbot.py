@@ -40,6 +40,7 @@ uploaded_image = st.file_uploader("Choose an image", type=["jpg", "jpeg", "png"]
 
 #########################
 
+
 first_prompt = st.text_input('Ask the Toaster')
 
 # Maintain conversation history
@@ -56,14 +57,14 @@ def first_generated_response(first_prompt, first_conversation_history):
         try:
             # Combine the conversation history with the prompt template
             combined_history = "\n".join(first_conversation_history)
-            response = client.chat.completions.create(
+            first_response = client.chat.completions.create(
             first_messages=[
                     {"role": "system", "content": "acknowledge the product name and reply in a fun way."},
                     {"role": "user", "content": combined_history + "\n" + first_response_template.format(topic1=first_prompt)}
                 ], model="gpt-3.5-turbo", temperature=0.9,
             )
 # Add AI response to the conversation history
-            first_conversation_history.append(f"AI: {response.choices[0].first_message.content}") # (f"AI: {response['choices'][0]['message']['content']}")
+            first_conversation_history.append(f"AI: {first_response.choices[0].first_message.content}") # (f"AI: {response['choices'][0]['message']['content']}")
 
             return first_response_template.choices[0].first_message.content #response['choices'][0]['message']['content']
         except Exception as e:
@@ -71,9 +72,9 @@ def first_generated_response(first_prompt, first_conversation_history):
             return None
 # Display response
     if st.button('Get Response'):
-        response = first_generated_response(first_prompt, first_conversation_history)
-        if response:
-            st.text_area('Talking Toaster:', response, height=300)
+        first_response = first_generated_response(first_prompt, first_conversation_history)
+        if first_response:
+            st.text_area('Talking Toaster:', first_response, height=300)
 # Display conversation history
 #st.text_area("Conversation History", "\n".join(conversation_history), height=300)
 
