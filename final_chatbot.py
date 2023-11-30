@@ -27,10 +27,10 @@ first_query = st.text_input('Enter the first query to start the conversation')
 
 # Maintain conversation history
 conversation_history = []
-
-if first_query:
-    # Get the second query from the user
-    second_query = st.text_input('Enter the second query')
+#
+#if first_query:
+#    # Get the second query from the user
+#    second_query = st.text_input('Enter the second query')
 
 # Initial prompt for the first user input
 initial_prompt = (
@@ -90,11 +90,11 @@ if st.button('Get First Response'):
     if response:
         st.text_area('Talking Toaster:', response, height=300)
 
-# Display response for the second query
-if st.button('Get Second Response'):
-    response = generate_response(second_query, conversation_history, is_first_query=False)
-    if response:
-        st.text_area('Talking Toaster:', response, height=300)
+## Display response for the second query
+#if st.button('Get Second Response'):
+#    response = generate_response(second_query, conversation_history, is_first_query=False)
+#    if response:
+#        st.text_area('Talking Toaster:', response, height=300)
 
 # Display conversation history
 st.text_area("Conversation History", "\n".join(conversation_history), height=300)
