@@ -35,16 +35,17 @@ def generate_response(prompt, conversation_history):
         try:
             # Combine the conversation history with the prompt template
             combined_history = "\n".join(conversation_history)
-            response = client.chat.completions.create(model='gpt-3.5-turbo',  # Updated model name
+            response = client.chat.completions.create(
             messages=[
                     {"role": "system", "content": "You are a helpful AI."},
                     {"role": "user", "content": combined_history + "\n" + prompt_template.format(topic=prompt)}
-                ])
+                ], model="gpt-3.5-turbo",
+            )
             # Add AI response to the conversation history
-            conversation_history.append(f"AI: {response['choices'][0]['message']['content']}")
+            conversation_history.append(f"AI: {response.choices[0].message.content]}") # (f"AI: {response['choices'][0]['message']['content']}")
             # Keep only the last 6 entries in the conversation history
             conversation_history = conversation_history[-6:]
-            return response['choices'][0]['message']['content']
+            return response.choices[0].message.content #response['choices'][0]['message']['content']
         except Exception as e:
             st.error(f"Error generating response: {e}")
             return None
