@@ -25,6 +25,9 @@ product_name = st.text_input('Enter the product name (e.g., Samsung1000)')
 # Get the first query to start the conversation
 first_query = st.text_input('Enter the first query to start the conversation')
 
+# Maintain conversation history
+conversation_history = []
+
 if first_query:
     # Get the second query from the user
     second_query = st.text_input('Enter the second query')
