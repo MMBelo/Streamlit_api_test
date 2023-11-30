@@ -1,6 +1,5 @@
 import os
 import streamlit as st
-from langchain import LangChain
 from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
 from openai import OpenAI
