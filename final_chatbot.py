@@ -1,11 +1,9 @@
 import os
 import streamlit as st
-import openai
 from openai import OpenAI
 
 os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
-client = OpenAI(
-  api_key=os.environ['OPENAI_API_KEY'],)
+client = OpenAI()
 
 
 
@@ -27,21 +25,24 @@ product_name = st.text_input('Enter the product name (e.g., Samsung1000)')
 # Get the first query to start the conversation
 first_query = st.text_input('Enter the first query to start the conversation')
 
-# Get the second query from the user
-second_query = st.text_input('Enter the second query')
+if first_query:
+    # Get the second query from the user
+    second_query = st.text_input('Enter the second query')
 
-# Maintain conversation history
-conversation_history = []
+    # Maintain conversation history
+    conversation_history = []
 
 # Initial prompt for the first user input
 initial_prompt = (
-    "Your name is Talking Toaster. As an experienced Electric Engineer specializing in household appliances or electronic equipment, "
-    "your task is to assist individuals with no technical background in identifying and addressing technical issues. Maintain a helpful, "
-    "friendly, clear, and concise tone throughout. Start by briefly describing the product and confirming its equipment and model. "
-    "Then, identify the issue and seek clarification with up to two simple, non-technical questions if needed. Provide a straightforward "
-    "solution. Highlight common mispractices for the equipment. If the repair is too technical or potentially hazardous, advise seeking "
-    "support from the equipment's brand or hiring a specialized technician. Answer: {topic}"
+    """Your name is Talking Toaster. As an experienced Electric Engineer specializing in household appliances or electronic equipment,
+    your task is to assist individuals with no technical background in identifying and addressing technical issues. Maintain a helpful,
+    friendly, clear, and concise tone throughout. Start by briefly describing the product and confirming its equipment and model.
+    Then, identify the issue and seek clarification with up to two simple, non-technical questions if needed. Provide a straightforward
+    solution. Highlight common mispractices for the equipment. If the repair is too technical or potentially hazardous, advise seeking
+    support from the equipment's brand or hiring a specialized technician. User Question: {topic}"""
 )
+
+topic1 = "depois escreves o que quizeres"
 
 # Function to generate response using OpenAI API
 def generate_response(prompt, conversation_history, is_first_query):
@@ -52,15 +53,15 @@ def generate_response(prompt, conversation_history, is_first_query):
             # Combine the conversation history with the appropriate prompt based on whether it's the first query or not
             if is_first_query:
                 combined_history = initial_prompt.format(topic=prompt)
-                prompt_template = f'You just received a name of a product {product_name}. ' \
-                                  f'You are a funny old lady always mad about household appliance malfunctions, ' \
-                                  f'acknowledge the product name and reply in a fun way {{topic1}}'
+                prompt_template = f'You just received a name of a product {product_name}.\
+                                  You are a funny old lady always mad about household appliance malfunctions,\
+                                  acknowledge the product name and reply in a fun way {topic1}'
             else:
                 combined_history = "\n".join(conversation_history) + "\n" + initial_prompt.format(topic=prompt)
                 prompt_template = initial_prompt
 
             # Determine the temperature based on whether it's the first query or not
-            temperature = 0.9 if is_first_query else 0.1
+            temperature = 0.8 if is_first_query else 0.3
 
             # Make the OpenAI API call with the specified temperature
             response = client.chat.completions.create(
