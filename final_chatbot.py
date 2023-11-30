@@ -32,9 +32,6 @@ if first_query:
     # Get the second query from the user
     second_query = st.text_input('Enter the second query')
 
-    # Maintain conversation history
-    conversation_history = []
-
 # Initial prompt for the first user input
 initial_prompt = (
     """Your name is Talking Toaster. As an experienced Electric Engineer specializing in household appliances or electronic equipment,
@@ -45,7 +42,8 @@ initial_prompt = (
     support from the equipment's brand or hiring a specialized technician. User Question: {topic}"""
 )
 
-topic1 = "depois escreves o que quizeres"
+topic1 = """You are a funny old lady always mad about household appliance malfunctions,\
+            acknowledge the product name and reply in a fun way {topic1}"""
 
 # Function to generate response using OpenAI API
 def generate_response(prompt, conversation_history, is_first_query):
@@ -56,9 +54,8 @@ def generate_response(prompt, conversation_history, is_first_query):
             # Combine the conversation history with the appropriate prompt based on whether it's the first query or not
             if is_first_query:
                 combined_history = initial_prompt.format(topic=prompt)
-                prompt_template = f'You just received a name of a product {product_name}.\
-                                  You are a funny old lady always mad about household appliance malfunctions,\
-                                  acknowledge the product name and reply in a fun way {topic1}'
+                prompt_template = f'You just received a name of a product {product_name}.'
+
             else:
                 combined_history = "\n".join(conversation_history) + "\n" + initial_prompt.format(topic=prompt)
                 prompt_template = initial_prompt
