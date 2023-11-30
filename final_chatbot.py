@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-
+import openai
 from openai import OpenAI
 
 os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
@@ -12,6 +12,9 @@ client = OpenAI(
 
 # App framework
 st.title('🤖🍞  Talking toaster AI')
+
+uploaded_image = st.file_uploader("Choose an image", type=["jpg", "jpeg", "png"])
+
 prompt = st.text_input('Ask the Toaster')
 # Maintain conversation history
 conversation_history = []
@@ -32,7 +35,7 @@ def generate_response(prompt, conversation_history):
         try:
             # Combine the conversation history with the prompt template
             combined_history = "\n".join(conversation_history)
-            response = client.chat.completions.create(model="gpt-3.5-turbo",  # Updated model name
+            response = client.chat.completions.create(model='gpt-3.5-turbo',  # Updated model name
             messages=[
                     {"role": "system", "content": "You are a helpful AI."},
                     {"role": "user", "content": combined_history + "\n" + prompt_template.format(topic=prompt)}
