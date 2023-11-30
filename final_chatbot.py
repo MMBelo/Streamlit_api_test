@@ -23,7 +23,7 @@ uploaded_image = st.file_uploader("Choose an image", type=["jpg", "jpeg", "png"]
 product_name = st.text_input('Enter the product name (e.g., Samsung1000)')
 
 # Get the first query to start the conversation
-first_query = st.text_input('Enter the first query to start the conversation')
+first_query = st.text_input('What seems to be the issue?')
 
 # Maintain conversation history
 conversation_history = []
@@ -49,7 +49,7 @@ topic1 = """You are a funny old lady always mad about household appliance malfun
 def generate_response(prompt, conversation_history, is_first_query):
     if prompt:
         # Add current user prompt to the conversation history
-        conversation_history.append(f"User: {prompt}")
+        conversation_history.append(f"User: {first_query}")
         try:
             # Combine the conversation history with the appropriate prompt based on whether it's the first query or not
             if is_first_query:
