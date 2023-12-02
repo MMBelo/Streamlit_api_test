@@ -75,7 +75,7 @@ def generate_first_user_text_input(response1):
 
 # Main conversation loop
 while True:
-    prompt = st.text_input('Ask the Toaster')
+    prompt = st.text_input('Ask the Toaster', key='unique_key')
     st.button('Get Response')
 
 
