@@ -12,7 +12,7 @@ client = OpenAI(
 st.title('🤖🍞  Talking toaster AI')
 st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
 
-picture = st.camera_input("Take a picture", key='p')
+picture = st.camera_input("Take a picture", key="unique_picture_key")
 
 # Function to save uploaded image to a temporary file
 def save_uploaded_image(picture):
@@ -75,8 +75,9 @@ def generate_first_user_text_input(response1):
 
 # Main conversation loop
 while True:
-    prompt = st.text_input('Ask the Toaster', key='b')
-    st.button('Get Response', key='c')
+    prompt = st.text_input("Ask the Toaster", key="unique_prompt_key")
+
+    st.button("Get Response", key="unique_button_key")
 
 
 # Function to generate first response box
@@ -94,7 +95,7 @@ while True:
             # Keep only the last 6 entries in the conversation history
             conversation_history = conversation_history[-6:]
         if response:
-            st.text_area('Talking Toaster:', response, height=300, key='d')
+            st.text_area("Talking Toaster:", response, height=300, key="unique_response_key")
 
 # Display conversation history
         st.text_area("Conversation History", "\n".join(conversation_history), height=300, key='e')
