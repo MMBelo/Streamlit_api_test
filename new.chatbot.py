@@ -79,23 +79,25 @@ while True:
 
     st.button("Get Response", key="unique_button_key")
 
+    if st.button and prompt:
+        combined_history = "\n".join(conversation_history)
 
-# Function to generate first response box
-    def generate_first_user_text_input(prompt, prompt_template, response, conversation_history, combined_history):
+        response = client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": "Your name is Talking Toaster. Your task is to assist individuals with no technical background in identifying and addressing technical issues."},
+                {"role": "user", "content": combined_history + "\n" + prompt_template.format(topic=prompt)}
+            ],
+            model="gpt-3.5-turbo", temperature=0.2
+        )
 
-        if st.button and prompt:
-            response = client.chat.completions.create(
-                messages=[
-                    {"role": "system", "content": "Your name is Talking Toaster. your task is to assist individuals with no technical background in identifying and addressing technical issues."},
-                    {"role": "user", "content": combined_history + "\n" + prompt_template.format(topic=prompt)}
-                ], model="gpt-3.5-turbo", temperature=0.2,
-            )
-             # Add AI response to the conversation history
-            conversation_history.append(f"AI: {response.choices[0].message.content}")
-            # Keep only the last 6 entries in the conversation history
-            conversation_history = conversation_history[-6:]
+        # Add AI response to the conversation history
+        conversation_history.append(f"AI: {response.choices[0].message.content}")
+
+        # Keep only the last 6 entries in the conversation history
+        conversation_history = conversation_history[-6:]
+
         if response:
             st.text_area("Talking Toaster:", response, height=300, key="unique_response_key")
 
-# Display conversation history
+    # Display conversation history
     st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
