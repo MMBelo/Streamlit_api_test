@@ -3,6 +3,7 @@ import streamlit as st
 import openai
 from openai import OpenAI
 import tempfile
+import random
 
 os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
 client = OpenAI(
@@ -25,6 +26,10 @@ def save_uploaded_image(picture):
     else:
         return None
 
+# Generate a random product name
+product_names = ["Samsung1000", "Toaster", "Microwave", "Fridge", "Washing Machine", "Dishwasher"]
+random_product_name = random.choice(product_names)
+
 # Maintain conversation history
 conversation_history = []
 
@@ -38,7 +43,7 @@ prompt_template = (
     "support from the equipment's brand or hiring a specialized technician. Answer: {topic}"
 )
 prompt_object_detected = """You are a funny old lady always mad about household appliance malfunctions,
-                            acknowledge the product name '(samsung1000)' say something funny. Finish the prompt saying,\
+                            acknowledge the""" + random_product_name + """say something funny. Finish the prompt saying,\
                             'How can i help you my dear?Answer: {topic1}'"""
 
 # Function to generate first interaction with object detected and user using OpenAI API
@@ -50,7 +55,7 @@ def generate_object_response(picture, prompt_object_detected):
             # Generate response for pbject detection
             response1 = client.chat.completions.create(
             messages=[
-                    {"role": "system", "content": "You are a funny old lady that will talk about the 'object name'"},
+                    {"role": "system", "content": "You are a funny old lady that will talk about the" + random_product_name +""},
                     {"role": "user", "content": "\n" + prompt_object_detected.format(topic1=prompt)}
                 ], model="gpt-3.5-turbo", temperature=0.8,
             )
