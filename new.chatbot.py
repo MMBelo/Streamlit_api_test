@@ -73,27 +73,25 @@ def generate_first_user_text_input(response1):
         st.error(f"Error generating response:")
         return None
 
-# Main conversation loop
+prompt = None
 while True:
+  if prompt is None:
     prompt = st.text_input("Ask the Toaster", key="unique_prompt_key")
-
-    st.button("Get Response", key="unique_button_key")
-
-    if st.button and prompt:
+  else:
+    if st.button("Get Response", key="unique_button_key"):
         combined_history = "\n".join(conversation_history)
-
         response = client.chat.completions.create(
-            messages=[
-                {"role": "system", "content": "Your name is Talking Toaster. Your task is to assist individuals with no technical background in identifying and addressing technical issues."},
-                {"role": "user", "content": combined_history + "\n" + prompt_template.format(topic=prompt)}
-            ],
-            model="gpt-3.5-turbo", temperature=0.2
-        )
+          messages=[
+          {"role": "system", "content": "Your name is Talking Toaster. Your task is to assist individuals with no technical background in identifying and addressing technical issues."},
+          {"role": "user", "content": combined_history + "\n" + prompt_template.format(topic=prompt)}
+        ],
+        model="gpt-3.5-turbo", temperature=0.2
+      )
 
-        # Add AI response to the conversation history
+      # Add AI response to the conversation history
         conversation_history.append(f"AI: {response.choices[0].message.content}")
 
-        # Keep only the last 6 entries in the conversation history
+      # Keep only the last 6 entries in the conversation history
         conversation_history = conversation_history[-6:]
 
         if response:
@@ -101,3 +99,33 @@ while True:
 
     # Display conversation history
     st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
+
+#
+## Main conversation loop
+#while True:
+#    prompt = st.text_input("Ask the Toaster", key="unique_prompt_key")
+#
+#    st.button("Get Response", key="unique_button_key")
+#
+#    if st.button and prompt:
+#        combined_history = "\n".join(conversation_history)
+#
+#        response = client.chat.completions.create(
+#            messages=[
+#                {"role": "system", "content": "Your name is Talking Toaster. Your task is to assist individuals with no technical background in identifying and addressing technical issues."},
+#                {"role": "user", "content": combined_history + "\n" + prompt_template.format(topic=prompt)}
+#            ],
+#            model="gpt-3.5-turbo", temperature=0.2
+#        )
+#
+#        # Add AI response to the conversation history
+#        conversation_history.append(f"AI: {response.choices[0].message.content}")
+#
+#        # Keep only the last 6 entries in the conversation history
+#        conversation_history = conversation_history[-6:]
+#
+#        if response:
+#            st.text_area("Talking Toaster:", response, height=300, key="unique_response_key")
+#
+#    # Display conversation history
+#    st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
