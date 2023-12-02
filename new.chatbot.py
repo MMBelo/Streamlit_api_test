@@ -20,6 +20,7 @@ def save_uploaded_image(picture):
         with tempfile.NamedTemporaryFile(delete=True) as temp_file:
             temp_file.write(picture.read())
             temp_file.flush()
+            temp_file.close()
             return temp_file.name
     else:
         return None
