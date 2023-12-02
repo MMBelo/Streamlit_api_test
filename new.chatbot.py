@@ -98,4 +98,4 @@ while True:
             st.text_area("Talking Toaster:", response, height=300, key="unique_response_key")
 
 # Display conversation history
-        st.text_area("Conversation History", "\n".join(conversation_history), height=300, key='e')
+    st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
