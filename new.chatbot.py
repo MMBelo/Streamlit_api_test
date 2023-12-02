@@ -23,10 +23,10 @@ def save_uploaded_image(picture):
             temp_file.flush()
             temp_file.close()
             return temp_file.name
-    else:
-        return None
+   #else:
+   #    return None
 
-# Generate a random product name
+  # Generate a random product name
 product_names = ["Samsung1000", "Toaster", "Microwave", "Fridge", "Washing Machine", "Dishwasher"]
 random_product_name = random.choice(product_names)
 
