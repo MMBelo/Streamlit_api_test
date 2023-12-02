@@ -75,9 +75,8 @@ def generate_first_user_text_input(response1):
 
 prompt = None
 while True:
-  if prompt is None:
-    prompt = st.text_input("Ask the Toaster", key="unique_prompt_key")
-  else:
+  if prompt:
+
     if st.button("Get Response", key="unique_button_key"):
         combined_history = "\n".join(conversation_history)
         response = client.chat.completions.create(
@@ -97,9 +96,12 @@ while True:
         if response:
             st.text_area("Talking Toaster:", response, height=300, key="unique_response_key")
 
+    else:
+        # Prompt input is not available, display it
+        prompt = st.text_input("Ask the Toaster", key="unique_prompt_key")
+
     # Display conversation history
     st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
-
 #
 ## Main conversation loop
 #while True:
