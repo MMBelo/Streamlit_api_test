@@ -20,6 +20,8 @@ def generate_product_name():
     product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
     return random.choice(product_names)
 
+st.button("Generate Product Name...")
+
 if st.button("Generate Product Name..."):
     product_name = generate_product_name()
     st.success(f"Product Name: {product_name}")
