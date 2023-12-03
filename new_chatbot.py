@@ -3,9 +3,6 @@ import streamlit as st
 import openai
 from openai import OpenAI
 import tempfile
-import agcv
-import cv2
-import numpy as np
 import random
 
 
@@ -17,50 +14,28 @@ client = OpenAI(
 st.title('🤖🍞  Talking toaster AI')
 st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
 
-# Initialize AgCV
-agcv.initialize()
+picture = st.camera_input("Take a picture", key="unique_picture_key")
 
-# Define a function to generate a random product name
 def generate_product_name():
-    nouns = ["apple", "banana", "orange", "grape", "pear"]
-    adjectives = ["red", "green", "blue", "yellow", "purple"]
+    product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
+    return random.choice(product_names)
 
-    noun = random.choice(nouns)
-    adjective = random.choice(adjectives)
-
-    return adjective + " " + noun
-
-# Create a Streamlit app
-st.title("Product Name Generator")
-
-# Create a button to take a picture
-if st.button("Take Picture"):
-    # Capture a frame from the webcam
-    frame = agcv.capture_frame()
-
-    # Convert the frame to RGB
-    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-    # Display the captured frame
-    st.image(rgb_frame)
-
-    # Generate a random product name
+if st.button("Generate Product Name..."):
     product_name = generate_product_name()
-
-    # Display the generated product name
-    st.success("Product Name: " + product_name)
-
+    st.success(f"Product Name: {product_name}")
 
 #
-#picture = st.camera_input("Take a picture", key="unique_picture_key")
-#
-#
-## Save uploaded image to a temporary file
-#if picture:
-#    with tempfile.NamedTemporaryFile(delete=True) as temp_file:
-#            temp_file.write(picture.read())
-#            temp_file.flush()
-#            temp_file.close()
+#st.button("Generate Product Name..."):
+#        product_names = ["Samsung1000", "Toaster", "Microwave", "Fridge", "Washing Machine", "Dishwasher"]
+#        product_name = random.choice(product_names)
+#        return product_name
+
+# Save uploaded image to a temporary file
+if picture:
+    with tempfile.NamedTemporaryFile(delete=True) as temp_file:
+            temp_file.write(picture.read())
+            temp_file.flush()
+            temp_file.close()
 #
 #def generate_product_name(product_name):
 #    if st.camera_input:
@@ -68,14 +43,10 @@ if st.button("Take Picture"):
 #        product_names = ["Samsung1000", "Toaster", "Microwave", "Fridge", "Washing Machine", "Dishwasher"]
 #        product_name = random.choice(product_names)
 #        return product_name
-#
-## Generate a random product name if no image is uploaded
-#if not picture:
-#    product_name = generate_product_name(tempfile.NamedTemporaryFile(delete=True))
 
-
-
-
+# Generate a random product name if no image is uploaded
+if not picture:
+    product_name = generate_product_name(tempfile.NamedTemporaryFile(delete=True))
 
 #
 ## Function to save uploaded image to a temporary file
