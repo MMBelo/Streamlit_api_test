@@ -38,8 +38,6 @@ if picture:
     except Exception as e:
         st.error(f"Error saving image: {e}")
 
-if product_name:
-        product_name = st.success(f"Product Name: {product_name}")
 
 # Maintain conversation history
 conversation_history = []
@@ -60,7 +58,8 @@ prompt_object_detected = ("""You are a funny old lady always mad about household
 
 # Function to generate first interaction with object detected and user using OpenAI API
 def generate_object_response(product_name, prompt_object_detected):
-    if product_name:
+        if product_name:
+            product_name = st.success(f"Product Name: {product_name}")
         try:
             # Generate response for pbject detection
             response1 = client.chat.completions.create(
