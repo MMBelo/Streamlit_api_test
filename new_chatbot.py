@@ -42,8 +42,13 @@ if picture:
 
 product_name = product_name1 if product_name1 else "Master Toster"
 
+# Initialize the flag in session state if it doesn't exist
+if 'has_run' not in st.session_state:
+    st.session_state['has_run'] = False
+
+
 # Prompt Generation and Response Handling
-if product_name:
+if product_name and not st.session_state['has_run']:
     response1 = client.chat.completions.create(
         messages=[
                     {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name +"persona 1"},
@@ -54,6 +59,9 @@ if product_name:
 
     # Maintain conversation history
     conversation_history.append(f"AI: {response1.choices[0].message.content}")
+
+    # Set the flag to True to indicate that the code has been run
+    st.session_state['has_run'] = True
 
 if response1 is not None:
     prompt = st.text_input('Ask the Toaster')
