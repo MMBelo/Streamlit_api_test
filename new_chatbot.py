@@ -6,8 +6,6 @@ import tempfile
 import random
 
 
-
-
 os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
 client = OpenAI(
   api_key=os.environ['OPENAI_API_KEY'],)
@@ -37,18 +35,20 @@ prompt_template = ("""you will have 2 personas, the first one will only anwser t
 picture = st.camera_input("Take a picture", key="unique_picture_key")
 
 # Save uploaded image to a temporary file
+product_name1 = None
 if picture:
     product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
     product_name1 = random.choice(product_names)
     st.button(f"Product Name: {product_name1}")
 
-product_name = product_name1
+product_name = product_name1 if product_name1 else "Master Toster"
+
 # Prompt Generation and Response Handling
 if product_name:
     response1 = client.chat.completions.create(
         messages=[
                     {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name +"persona 1"},
-                    {"role": "user", "content": "\n" + prompt_template.format(topic=prompt_template)},
+                    {"role": "user", "content": "\n" + prompt_template.format(product=product_name, topic1 = "How can i help you my dear?")},
                 ], model="gpt-3.5-turbo", temperature=0.8,
            )
     st.text_area('Talking Toaster:', response1.choices[0].message.content, height=300)
