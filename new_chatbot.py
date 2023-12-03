@@ -72,10 +72,6 @@ if picture:
                     {"role": "user", "content": "\n" + prompt_object_detected.format(topic1=product_name1)}
                 ], model="gpt-3.5-turbo", temperature=0.8,
             )
-            # Add AI response to the conversation history
-    conversation_history.append(f"AI: {response1.choices[0].message.content}")
-            # Keep only the last 6 entries in the conversation history
-    conversation_history = conversation_history[-6:]
     if response1:
         first_interaction = st.text_area('Talking Toaster:', response1, height=300)
     else:
