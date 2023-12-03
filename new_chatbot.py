@@ -45,26 +45,22 @@ product_name = product_name1
 
 if product_name:
     response1 = client.chat.completions.create(
-        messages=[
-            {"role": "system", "content": prompt_template + product_name + " use no more than 100 words."},
-            {"role": "user", "content": "User message here"},
-        ],
+             messages=[
+           {"role": "system", "content": prompt_template + product_name + "use no more than 100 words."},
+           {"role": "user", "content": "User message here"},
+           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+           {"role": "user", "content": "User message here"},
+           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+           {"role": "user", "content": "User message here"},
+           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+           {"role": "user", "content": "User message here"},
+           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+       ],
         model="gpt-3.5-turbo",
     )
 
-    st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
- #       messages=[
- #           {"role": "system", "content": prompt_template + product_name + "use no more than 100 words."},
- #           {"role": "user", "content": "User message here"},
- #           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
- #           {"role": "user", "content": "User message here"},
- #           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
- #           {"role": "user", "content": "User message here"},
- #           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
- #           {"role": "user", "content": "User message here"},
- #           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
-#
-#        ],
+st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
+
 # Maintain conversation history
 conversation_history.append(f"AI: {response1.choices[0].message.content}")
 
