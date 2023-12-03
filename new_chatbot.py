@@ -50,12 +50,12 @@ if product_name:
                     {"role": "user", "content": "\n" + prompt_template.format(product=product_name, topic1 = "How can i help you my dear?", topic='', conversation_history='')}
                 ], model="gpt-3.5-turbo", temperature=0.8,
            )
-    st.text_area('Talking Toaster:', response1.choices[0].message.content, height=300)
+    st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
 
     # Maintain conversation history
     conversation_history.append(f"AI: {response1.choices[0].message.content}")
 
-#while True:
+if response1 is not None:
     prompt = st.text_input('Ask the Toaster')
 
     # Combine conversation history
@@ -83,7 +83,7 @@ if product_name:
     # Keep only the last 6 entries in conversation history
     conversation_history = conversation_history[-6:]
 
-    st.text_area('Talking Toaster:', response.choices[0].message.content, height=300)
+    st.text_area('Talking Toaster:', response.choices[0].message.content, height=100)
 
     # Display conversation history
     st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
