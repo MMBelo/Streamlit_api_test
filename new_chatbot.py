@@ -48,13 +48,14 @@ if product_name:
         messages=[
             {"role": "system", "content": prompt_template + product_name + "use no more than 100 words."},
             {"role": "user", "content": "User message here"},
-            {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words."},
+            {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
             {"role": "user", "content": "User message here"},
-            {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words."},
+            {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
             {"role": "user", "content": "User message here"},
-            {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words."},
+            {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
             {"role": "user", "content": "User message here"},
-            {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words."},
+            {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+
         ], model="gpt-3.5-turbo",
     )
 
