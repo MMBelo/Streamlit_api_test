@@ -14,14 +14,15 @@ client = OpenAI(
 st.title('🤖🍞  Talking toaster AI')
 st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
 
-picture = st.camera_input("Take a picture", key="unique_picture_key")
-
-
 if st.button("Generate Product Name..."):
     product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
     product_name = random.choice(product_names)
     if product_name:
         st.success(f"Product Name: {product_name}")
+
+
+picture = st.camera_input("Take a picture", key="unique_picture_key")
+
 
 #
 #def generate_product_name():
