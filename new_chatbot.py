@@ -110,4 +110,4 @@ while True:
 
 
     # Display conversation history
-    st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
+        st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
