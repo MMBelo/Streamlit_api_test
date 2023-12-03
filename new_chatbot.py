@@ -25,10 +25,11 @@ if picture:
             temp_file.close()
 
 def generate_product_name(product_name):
+    if temp_file:
     # Generate a random product name
-    product_names = ["Samsung1000", "Toaster", "Microwave", "Fridge", "Washing Machine", "Dishwasher"]
-    product_name = random.choice(product_names)
-    return product_name
+        product_names = ["Samsung1000", "Toaster", "Microwave", "Fridge", "Washing Machine", "Dishwasher"]
+        product_name = random.choice(product_names)
+        return product_name
 
 # Generate a random product name if no image is uploaded
 if not picture:
