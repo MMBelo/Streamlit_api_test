@@ -71,7 +71,7 @@ if product_name:
     #Display conversation history
     st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
 
-prompt = st.text_input('Ask the Toaster')
+#prompt = st.text_input('Ask the Toaster')
 #
 #if response1 is not None:
 #    prompt = st.text_input('Ask the Toaster')
