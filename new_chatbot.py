@@ -52,7 +52,7 @@ if product_name and not st.session_state['has_run']:
     response1 = client.chat.completions.create(
         messages=[
                     {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name +"persona 1"},
-                    {"role": "user", "content": "\n" + prompt_template.format(product=product_name, topic1 = "How can i help you my dear?", topic='', conversation_history='')}
+                    #{"role": "user", "content": "\n" + prompt_template.format(product=product_name, topic1 = "How can i help you my dear?", topic='', conversation_history='')} # {"role": "user", "content": "\n" + prompt_template.format(product=product_name, topic1 = "How can i help you my dear?", topic='', conversation_history='')}
                 ], model="gpt-3.5-turbo", temperature=0.8,
            )
     st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
