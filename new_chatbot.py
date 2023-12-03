@@ -69,7 +69,7 @@ if picture:
         response1 = client.chat.completions.create(
             messages=[
                     {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name1 +""},
-                    {"role": "user", "content": "\n" + prompt_object_detected.format(topic1=prompt_object_detected)}
+                    {"role": "user", "content": "\n" + prompt_object_detected.format(topic1=product_name1)}
                 ], model="gpt-3.5-turbo", temperature=0.8,
             )
             # Add AI response to the conversation history
@@ -77,14 +77,14 @@ if picture:
             # Keep only the last 6 entries in the conversation history
     conversation_history = conversation_history[-6:]
     if response1:
-         first_interaction = st.text_area('Talking Toaster:', response1, height=300)
-else:
+        first_interaction = st.text_area('Talking Toaster:', response1, height=300)
+    else:
         st.error(f"Error generating response:")
-
-
-prompt = None
-while True:
-  if first_interaction:
+#
+#
+#prompt = None
+#while True:
+    if first_interaction:
        # Prompt input is not available, display it
         prompt = st.text_input("Ask the Toaster", key="unique_prompt_key")
 
