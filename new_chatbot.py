@@ -16,16 +16,19 @@ st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
 
 picture = st.camera_input("Take a picture", key="unique_picture_key")
 
-def generate_product_name():
-    product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
-    return random.choice(product_names)
 
 st.button("Generate Product Name...")
-
 if st.button("Generate Product Name..."):
-    product_name = generate_product_name()
-    st.success(f"Product Name: {product_name}")
+    product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
+    product_name = random.choice(product_names)
 
+st.success(f"Product Name: {product_name}")
+
+#
+#def generate_product_name():
+#    product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
+#    return random.choice(product_names)
+#
 #
 #st.button("Generate Product Name..."):
 #        product_names = ["Samsung1000", "Toaster", "Microwave", "Fridge", "Washing Machine", "Dishwasher"]
