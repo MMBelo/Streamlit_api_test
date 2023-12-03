@@ -14,14 +14,15 @@ client = OpenAI(
 st.title('🤖🍞  Talking toaster AI')
 st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
 
+picture = st.camera_input("Take a picture", key="unique_picture_key")
+
+
 if st.button("Generate Product Name..."):
     product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
     product_name = random.choice(product_names)
     if product_name:
         st.success(f"Product Name: {product_name}")
 
-
-picture = st.camera_input("Take a picture", key="unique_picture_key")
 
 
 #
@@ -50,8 +51,6 @@ if picture:
 #        return product_name
 
 # Generate a random product name if no image is uploaded
-if not picture:
-    product_name = generate_product_name(tempfile.NamedTemporaryFile(delete=True))
 
 #
 ## Function to save uploaded image to a temporary file
