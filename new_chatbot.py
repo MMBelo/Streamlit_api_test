@@ -51,10 +51,12 @@ if 'has_run' not in st.session_state:
 if product_name and not st.session_state['has_run']:
     response1 = client.chat.completions.create(
         messages=[
-                    {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name +""},
+                    {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name + "height=100"},
                     #{"role": "user", "content": "\n" + prompt_template.format(product=product_name, topic1 = "How can i help you my dear?", topic='', conversation_history='')} # {"role": "user", "content": "\n" + prompt_template.format(product=product_name, topic1 = "How can i help you my dear?", topic='', conversation_history='')}
                 ], model="gpt-3.5-turbo",
            )
+    prompt = st.text_input('Ask the Toaster')
+
     st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
 
     # Maintain conversation history
