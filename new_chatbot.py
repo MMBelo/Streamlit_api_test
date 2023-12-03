@@ -45,6 +45,12 @@ product_name = product_name1
 
 if product_name:
     response1 = client.chat.completions.create(
+        messages=[
+            {"role": "system", "content": prompt_template + product_name + " use no more than 100 words."},
+            {"role": "user", "content": "User message here"},
+        ],
+        model="gpt-3.5-turbo",
+    )
  #       messages=[
  #           {"role": "system", "content": prompt_template + product_name + "use no more than 100 words."},
  #           {"role": "user", "content": "User message here"},
@@ -57,8 +63,7 @@ if product_name:
  #           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
 #
 #        ],
-    model="gpt-3.5-turbo",
-    )
+
 
 prompt = st.text_input('Ask the Toaster')
 
