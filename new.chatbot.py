@@ -22,25 +22,26 @@ def save_uploaded_image(picture):
             temp_file.write(picture.read())
             temp_file.flush()
             temp_file.close()
-            #return temp_file.name
-   #else:
-   #    return None
-
-  # Generate a random product name
-        product_names = ["Samsung1000", "Toaster", "Microwave", "Fridge", "Washing Machine", "Dishwasher"]
-        random_product_name = random.choice(product_names)
+            return temp_file.name
 
     else:
         return None
 
+
+# Generate a random product name
+product_names = ["Samsung1000", "Toaster", "Microwave", "Fridge", "Washing Machine", "Dishwasher"]
+random_product_name = random.choice(product_names)
+
+
 # Maintain conversation history
 conversation_history = []
+
 
 # Prompt template
 prompt_template = (
     "Your name is Talking Toaster. As an experienced Electric Engineer specializing in household appliances or electronic equipment, "
     "your task is to assist individuals with no technical background in identifying and addressing technical issues. Maintain a helpful, "
-    "friendly, clear, and concise tone throughout. Start by briefly describing the product and confirming its equipment and model. "
+    "friendly, clear, and concise tone throughout. Start by briefly describing the product " + random_product_name + "and confirming its equipment and model. "
     "Then, identify the issue and seek clarification with up to two simple, non-technical questions if needed. Provide a straightforward "
     "solution. Highlight common mispractices for the equipment. If the repair is too technical or potentially hazardous, advise seeking "
     "support from the equipment's brand or hiring a specialized technician. Answer: {topic}"
