@@ -42,18 +42,19 @@ if picture:
     product_name1 = random.choice(product_names)
     st.button(f"Product Name: {product_name1}")
 
+product_name = product_name1
 # Prompt Generation and Response Handling
-if product_name1:
-        response1 = client.chat.completions.create(
+if product_name:
+    response1 = client.chat.completions.create(
         messages=[
-                    {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name1 +"persona 1"},
+                    {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name +"persona 1"},
                     {"role": "user", "content": "\n" + prompt_template.format(topic=prompt_template)},
                 ], model="gpt-3.5-turbo", temperature=0.8,
            )
-        st.text_area('Talking Toaster:', response1.choices[0].message.content, height=300)
+    st.text_area('Talking Toaster:', response1.choices[0].message.content, height=300)
 
     # Maintain conversation history
-        conversation_history.append(f"AI: {response1.choices[0].message.content}")
+    conversation_history.append(f"AI: {response1.choices[0].message.content}")
 
 while True:
     prompt = st.text_input('Ask the Toaster')
@@ -66,7 +67,7 @@ while True:
         messages=[
             {
                 "role": "system",
-                "content": "You are a helpful AI." + product_name1 +" persona 2",
+                "content": "You are a helpful AI." + product_name +" persona 2",
             },
             {
                 "role": "user",
