@@ -59,15 +59,17 @@ if picture:
     except Exception as e:
         st.error(f"Error saving image: {e}")
 
+if st.button('Confirm: {product_name1}'):
+
 # Function to generate first interaction with object detected and user using OpenAI API
 #def generate_object_response(product_name, prompt_object_detected,conversation_history):
-if product_name1:
-    if st.button('Start Chat:'):
+#if product_name1:
+#    if st.button('Start Chat:'):
         # Add current user prompt to the conversation history
-        conversation_history.append(f"Product: {product_name}")
+        conversation_history.append(f"Product: {product_name1}")
         response1 = client.chat.completions.create(
             messages=[
-                    {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name +""},
+                    {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name1 +""},
                     {"role": "user", "content": "\n" + prompt_object_detected.format(topic1=prompt_object_detected)}
                 ], model="gpt-3.5-turbo", temperature=0.8,
             )
@@ -77,7 +79,7 @@ if product_name1:
         conversation_history = conversation_history[-6:]
         if response1:
          first_interaction = st.text_area('Talking Toaster:', response1, height=300)
-    else:
+else:
         st.error(f"Error generating response:")
 
 
