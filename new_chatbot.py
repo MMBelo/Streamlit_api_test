@@ -46,11 +46,20 @@ product_name = product_name1 if product_name1 else "Master Toster"
 if product_name:
     response1 = client.chat.completions.create(
         messages=[
-                    {"role": "system", "content": "You are a funny old lady that will talk about the product_name ,height=100"},
-                    #{"role": "user", "content": "\n" + prompt_template.format(product=product_name, topic1 = "How can i help you my dear?", topic='', conversation_history='')} # {"role": "user", "content": "\n" + prompt_template.format(product=product_name, topic1 = "How can i help you my dear?", topic='', conversation_history='')}
+                    {"role": "system", "content": prompt_template + product_name + "use no more than 100 words." },
+                    {"role": "user", "content":},
+                    {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words." },
+                    {"role": "user", "content":},
+                    {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words." },
+                     {"role": "user", "content":},
+                    {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words." },
+                    {"role": "user", "content":},
+                    {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words." },
                 ], model="gpt-3.5-turbo",
            )
-    #st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
+    prompt = st.text_input('Ask the Toaster')
+
+    st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
 
     # Maintain conversation history
     conversation_history.append(f"AI: {response1.choices[0].message.content}")
@@ -62,7 +71,6 @@ if product_name:
     st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
 
 prompt = st.text_input('Ask the Toaster')
-
 #
 #if response1 is not None:
 #    prompt = st.text_input('Ask the Toaster')
