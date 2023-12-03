@@ -13,32 +13,6 @@ client = OpenAI(
 st.title('🤖🍞  Talking toaster AI')
 st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
 
-picture = st.camera_input("Take a picture", key="unique_picture_key")
-
-#
-#if st.button("Generate Product Name..."):
-#    product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
-#    product_name = random.choice(product_names)
-#    if product_name:
-#        selected_product = product_name
-#        st.success(f"Product Name: {product_name}")
-#
-#        # Use the variable in other functions
-#        print(f"Selected product: {selected_product}")
-
-# Save uploaded image to a temporary file
-if picture:
-    product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
-    product_name = random.choice(product_names)
-    try:
-        with tempfile.NamedTemporaryFile(delete=True) as temp_file:
-            temp_file.write(picture.read())
-            temp_file.flush()
-            temp_file.close()
-    except Exception as e:
-        st.error(f"Error saving image: {e}")
-
-
 # Maintain conversation history
 conversation_history = []
 
@@ -55,6 +29,35 @@ prompt_template = (
 prompt_object_detected = ("""You are a funny old lady always mad about household appliance malfunctions,
                             acknowledge the {} say something funny. Finish the prompt saying,
                             'How can i help you my dear?{topic1}'""")
+
+
+picture = st.camera_input("Take a picture", key="unique_picture_key")
+
+#
+#if st.button("Generate Product Name..."):
+#    product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
+#    product_name = random.choice(product_names)
+#    if product_name:
+#        selected_product = product_name
+#        st.success(f"Product Name: {product_name}")
+#
+#        # Use the variable in other functions
+#        print(f"Selected product: {selected_product}")
+
+
+
+# Save uploaded image to a temporary file
+if picture:
+    product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
+    product_name = random.choice(product_names)
+    try:
+        with tempfile.NamedTemporaryFile(delete=True) as temp_file:
+            temp_file.write(picture.read())
+            temp_file.flush()
+            temp_file.close()
+    except Exception as e:
+        st.error(f"Error saving image: {e}")
+
 
 # Function to generate first interaction with object detected and user using OpenAI API
 def generate_object_response(product_name, prompt_object_detected):
