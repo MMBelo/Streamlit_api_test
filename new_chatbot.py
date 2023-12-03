@@ -51,6 +51,8 @@ if product_name:
         ],
         model="gpt-3.5-turbo",
     )
+
+    st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
  #       messages=[
  #           {"role": "system", "content": prompt_template + product_name + "use no more than 100 words."},
  #           {"role": "user", "content": "User message here"},
@@ -68,7 +70,7 @@ if product_name:
 prompt = st.text_input('Ask the Toaster')
 
 #st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
-st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
+#st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
 
     # Maintain conversation history
 conversation_history.append(f"AI: {response1.choices[0].message.content}")
