@@ -61,7 +61,7 @@ if picture:
 
 # Function to generate first interaction with object detected and user using OpenAI API
 #def generate_object_response(product_name, prompt_object_detected,conversation_history):
-if product_name:
+if product_name1:
     if st.button('Start Chat:'):
         # Add current user prompt to the conversation history
         conversation_history.append(f"Product: {product_name}")
