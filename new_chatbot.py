@@ -46,17 +46,18 @@ product_name = product_name1 if product_name1 else "Master Toster"
 if product_name:
     response1 = client.chat.completions.create(
         messages=[
-                    {"role": "system", "content": prompt_template + product_name + "use no more than 100 words." },
-                    {"role": "user", "content":},
-                    {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words." },
-                    {"role": "user", "content":},
-                    {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words." },
-                     {"role": "user", "content":},
-                    {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words." },
-                    {"role": "user", "content":},
-                    {"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words." },
-                ], model="gpt-3.5-turbo",
-           )
+            {"role": "system", "content": prompt_template + product_name + "use no more than 100 words."},
+            #{"role": "user", "content": "User message here"},
+            #{"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words."},
+            #{"role": "user", "content": "User message here"},
+            #{"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words."},
+            #{"role": "user", "content": "User message here"},
+            #{"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words."},
+            #{"role": "user", "content": "User message here"},
+            #{"role": "system", "content": prompt_template + conversation_history + "use no more than 100 words."},
+        ], model="gpt-3.5-turbo",
+    )
+
     prompt = st.text_input('Ask the Toaster')
 
     st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
