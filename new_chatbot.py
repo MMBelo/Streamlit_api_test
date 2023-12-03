@@ -51,6 +51,21 @@ if picture:
     product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
     product_name1 = random.choice(product_names)
     if st.button(f"Product Name: {product_name1}"):
+            response1 = st.text_area(client.chat.completions.create(
+            messages=[
+                    {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name1 +""},
+                    {"role": "user", "content": "\n" + prompt_object_detected.format(topic1=product_name1)}
+                ], model="gpt-3.5-turbo", temperature=0.8,
+           ))
+ #  if response1:
+ #      first_interaction = st.text_area('Talking Toaster:', response1, height=300)
+ #  else:
+ #      st.error(f"Error generating response:")
+#
+
+
+
+
 #    try:
 #        with tempfile.NamedTemporaryFile(delete=True) as temp_file:
 #            temp_file.write(picture.read())
@@ -66,21 +81,11 @@ if picture:
 #    if st.button('Start Chat:'):
         # Add current user prompt to the conversation history
         #conversation_history.append(f"Product: {product_name1}")
-        response1 = client.chat.completions.create(
-            messages=[
-                    {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name1 +""},
-                    {"role": "user", "content": "\n" + prompt_object_detected.format(topic1=product_name1)}
-                ], model="gpt-3.5-turbo", temperature=0.8,
-            )
-    if response1:
-        first_interaction = st.text_area('Talking Toaster:', response1, height=300)
-    else:
-        st.error(f"Error generating response:")
-#
+
 #
 #prompt = None
 #while True:
-    if first_interaction:
+if response1:
        # Prompt input is not available, display it
         prompt = st.text_input("Ask the Toaster", key="unique_prompt_key")
 
