@@ -21,16 +21,16 @@ if st.button("Generate Product Name..."):
         st.success(f"Product Name: {product_name}")
 
 
-picture = st.camera_input("Take a picture", key="unique_picture_key")
-
-
-# Save uploaded image to a temporary file
-if picture:
-    with tempfile.NamedTemporaryFile(delete=True) as temp_file:
-            temp_file.write(picture.read())
-            temp_file.flush()
-            temp_file.close()
-
+#picture = st.camera_input("Take a picture", key="unique_picture_key")
+#
+#
+## Save uploaded image to a temporary file
+#if picture:
+#    with tempfile.NamedTemporaryFile(delete=True) as temp_file:
+#            temp_file.write(picture.read())
+#            temp_file.flush()
+#            temp_file.close()
+#
 # Maintain conversation history
 conversation_history = []
 
