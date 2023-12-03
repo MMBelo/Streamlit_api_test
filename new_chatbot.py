@@ -45,32 +45,34 @@ product_name = product_name1
 
 if product_name:
     response1 = client.chat.completions.create(
-        messages=[
-            {"role": "system", "content": prompt_template + product_name + "use no more than 100 words."},
-            {"role": "user", "content": "User message here"},
-            {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
-            {"role": "user", "content": "User message here"},
-            {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
-            {"role": "user", "content": "User message here"},
-            {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
-            {"role": "user", "content": "User message here"},
-            {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
-
-        ], model="gpt-3.5-turbo",
+ #       messages=[
+ #           {"role": "system", "content": prompt_template + product_name + "use no more than 100 words."},
+ #           {"role": "user", "content": "User message here"},
+ #           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+ #           {"role": "user", "content": "User message here"},
+ #           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+ #           {"role": "user", "content": "User message here"},
+ #           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+ #           {"role": "user", "content": "User message here"},
+ #           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+#
+#        ],
+    model="gpt-3.5-turbo",
     )
 
-    prompt = st.text_input('Ask the Toaster')
+prompt = st.text_input('Ask the Toaster')
 
-    st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
+#st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
+st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
 
     # Maintain conversation history
-    conversation_history.append(f"AI: {response1.choices[0].message.content}")
+conversation_history.append(f"AI: {response1.choices[0].message.content}")
 
 # Keep only the last 6 entries in conversation history
-    conversation_history = conversation_history[-6:]
+conversation_history = conversation_history[-6:]
 
     #Display conversation history
-    st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
+st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
 
 #prompt = st.text_input('Ask the Toaster')
 #
