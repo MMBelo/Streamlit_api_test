@@ -49,7 +49,8 @@ picture = st.camera_input("Take a picture", key="unique_picture_key")
 # Save uploaded image to a temporary file
 if picture:
     product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
-    product_name = random.choice(product_names)
+    product_name1 = random.choice(product_names)
+    product_name = st.success(f"Product Name: {product_name1}")
     try:
         with tempfile.NamedTemporaryFile(delete=True) as temp_file:
             temp_file.write(picture.read())
@@ -58,32 +59,22 @@ if picture:
     except Exception as e:
         st.error(f"Error saving image: {e}")
 
-if product_name:
-            product_name = st.success(f"Product Name: {product_name}")
-
 # Function to generate first interaction with object detected and user using OpenAI API
 def generate_object_response(product_name, prompt_object_detected,conversation_history):
         if product_name:
-             # Add current user prompt to the conversation history
-            conversation_history.append(f"User: {prompt}")
-        try:
-            # Generate response for pbject detection
-            response1 = client.chat.completions.create(
+            if st.button('Start Chat:'):
+                response1 = client.chat.completions.create(
             messages=[
                     {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name +""},
-                    {"role": "user", "content": "\n" + prompt_object_detected.format(topic1=prompt)}
+                    {"role": "user", "content": "\n" + prompt_object_detected.format(topic1=prompt_object_detected)}
                 ], model="gpt-3.5-turbo", temperature=0.8,
             )
-             # Add AI response to the conversation history
-            conversation_history.append(f"AI: {response1.choices[0].message.content}")
+            # Add AI response to the conversation history
+        conversation_history.append(f"AI: {response1.choices[0].message.content}")
             # Keep only the last 6 entries in the conversation history
-            conversation_history = conversation_history[-6:]
-            return response1.choices[0].message.content
+        conversation_history = conversation_history[-6:]
+        return response1.choices[0].message.content
             #response = generate_object_response(prompt, conversation_history, temperature=0.8, prompt_object_detectede=prompt_object_detected)
-
-        except Exception as e:
-            st.error(f"Error generating response: {e}")
-            return None
 
 
 # Function to generate first response box
