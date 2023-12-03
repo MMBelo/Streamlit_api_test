@@ -50,7 +50,7 @@ picture = st.camera_input("Take a picture", key="unique_picture_key")
 if picture:
     product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
     product_name1 = random.choice(product_names)
-    product_name = st.button(product_name = st.success(f"Product Name: {product_name1}")):
+    if st.button(f"Product Name: {product_name1}"):
 #    try:
 #        with tempfile.NamedTemporaryFile(delete=True) as temp_file:
 #            temp_file.write(picture.read())
@@ -66,7 +66,7 @@ if picture:
 #    if st.button('Start Chat:'):
         # Add current user prompt to the conversation history
         #conversation_history.append(f"Product: {product_name1}")
-    response1 = client.chat.completions.create(
+        response1 = client.chat.completions.create(
             messages=[
                     {"role": "system", "content": "You are a funny old lady that will talk about the" + product_name1 +""},
                     {"role": "user", "content": "\n" + prompt_object_detected.format(topic1=prompt_object_detected)}
