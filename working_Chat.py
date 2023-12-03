@@ -7,6 +7,9 @@ os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
 client = OpenAI(
   api_key=os.environ['OPENAI_API_KEY'],)
 
+# Function to create or get the session state
+def get_session_state():
+    return st.session_state
 
 #os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
 
@@ -16,8 +19,16 @@ st.title('🤖🍞  Talking toaster AI')
 uploaded_image = st.file_uploader("Choose an image", type=["jpg", "jpeg", "png"])
 
 prompt = st.text_input('Ask the Toaster')
+
+# Get or create the session state
+state = get_session_state()
+
+# Initialize conversation history if not present
+if 'conversation_history' not in state:
+    state.conversation_history = []
+
 # Maintain conversation history
-conversation_history = []
+#conversation_history = []
 # Prompt template
 prompt_template = (
     "Your name is Talking Toaster. As an experienced Electric Engineer specializing in household appliances or electronic equipment, "
@@ -51,8 +62,11 @@ def generate_response(prompt, conversation_history):
             return None
 # Display response
 if st.button('Get Response'):
-    response = generate_response(prompt, conversation_history)
+    response = generate_response(prompt, state.conversation_history)
     if response:
         st.text_area('Talking Toaster:', response, height=300)
 # Display conversation history
-st.text_area("Conversation History", "\n".join(conversation_history), height=300)
+st.text_area("Conversation History", "\n".join(state.conversation_history), height=300)
+
+# Save the state so it persists across reruns
+st.session_state = state
