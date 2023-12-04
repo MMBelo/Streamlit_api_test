@@ -68,7 +68,7 @@ conversation_history.append(f"AI: {response1.choices[0].message.content}")
 # Keep only the last 6 entries in conversation history
 conversation_history = conversation_history[-6:]
 
-prompt = st.text_input('Ask the Toaster')
+#prompt = st.text_input('Ask the Toaster')
 
 #st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
 #st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
