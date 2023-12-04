@@ -34,7 +34,7 @@ prompt_template = ("""first, will only anwser the first querie like You are a fu
 picture = st.camera_input("Take a picture", key="unique_picture_key")
 
 # Save uploaded image to a temporary file
-product_name1 = None
+#product_name1 = None
 if picture:
     product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
     product_name1 = random.choice(product_names)
@@ -48,13 +48,13 @@ if product_name:
              messages=[
            {"role": "system", "content": prompt_template + product_name + "use no more than 100 words."},
            {"role": "user", "content": "User message here"},
-           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."topic=topic1},
            {"role": "user", "content": "User message here"},
-           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."topic=topic},
            {"role": "user", "content": "User message here"},
-           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."topic=topic},
            {"role": "user", "content": "User message here"},
-           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."},
+           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."topic=topic},
        ],
         model="gpt-3.5-turbo",
     )
