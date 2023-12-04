@@ -46,15 +46,16 @@ product_name = product_name1
 if product_name:
     response1 = client.chat.completions.create(
              messages=[
-           {"role": "system", "content": prompt_template + product_name + "use no more than 100 words."},
+                 {"role": "system", "content": f"{prompt_template} {product_name} use no more than 100 words."},
            {"role": "user", "content": "User message here"},
-           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."topic=topic1},
+           {"role": "system", "content": f"{prompt_template} {' '.join(conversation_history)} use no more than 100 words."},
            {"role": "user", "content": "User message here"},
-           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."topic=topic},
+           {"role": "system", "content": f"{prompt_template} {' '.join(conversation_history)} use no more than 100 words. "},
            {"role": "user", "content": "User message here"},
-           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."topic=topic},
+           {"role": "system", "content": f"{prompt_template} {' '.join(conversation_history)} use no more than 100 words. "},
            {"role": "user", "content": "User message here"},
-           {"role": "system", "content": prompt_template + ' '.join(conversation_history) + " use no more than 100 words."topic=topic},
+           {"role": "system", "content": f"{prompt_template} {' '.join(conversation_history)} use no more than 100 words. "},
+
        ],
         model="gpt-3.5-turbo",
     )
