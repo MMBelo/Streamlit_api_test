@@ -25,7 +25,8 @@ def answer_template(answer):
         Maintain a helpful, friendly, clear, and concise tone throughout. Start by briefly describing the product {product_name} and confirming its equipment and model.
         Then, identify the issue and seek clarification with up to two simple, non-technical questions if needed. Provide a straightforward
         solution. Highlight common mispractices for the equipment. If the repair is too technical or potentially hazardous, advise seeking
-        support from the equipment's brand or hiring a specialized technician. Your name is 'Talking Toaster' use no more than 100 words."""
+        support from the equipment's brand or hiring a specialized technician. Your name is 'Talking Toaster',
+        Make sure you only introduce yourself the first time. Say you going to take over the funny grandma to answer the questions also mention it only once.."use no more than 100 words."""
 
 
 
@@ -34,8 +35,10 @@ picture = st.camera_input("Take a picture", key="unique_picture_key")
 
 # Save uploaded image to a temporary file
 #product_name1 = None
+
+#["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
 if picture:
-    product_names = ["Samsung Galaxy S23", "Toaster", "Microwave Oven", "Refrigerator", "Washing Machine", "Dishwasher"]
+    product_names = ["Dishwasher"]
     if 'product_name' not in st.session_state:
         st.session_state['product_name'] = random.choice(product_names)
     product_name = st.session_state['product_name']
@@ -73,7 +76,7 @@ if picture:
             st.session_state['velhinha'] = response.choices[0].message.content
             #conversation_history.append({"role":"assistant","content":st.session_state['velhinha']})
 
-        st.text('Your friends Grandma: ' + st.session_state['velhinha'])
+        st.text('Funny Grandma: ' + st.session_state['velhinha'])
 
         # Maintain conversation history
         #conversation_history.append(f"AI: {response1.choices[0].message.content}")
@@ -133,12 +136,12 @@ Swishing or Sloshing: The dishwasher will make a swishing noise as the water is 
 
 Whining Noise: The dishwasher wash pump motor can make a whining sound when operating. This is normal."""
 
-            conversation_history.append({"role":"system","content":answer_template(answer)})
+            conversation_history.append({"role":"system","content": answer_template(answer)})
             response = client.chat.completions.create(
                     messages=conversation_history,
                 model="gpt-3.5-turbo", temperature= 0.1
             )
-            conversation_history.append({"role":"assistant","content":response.choices[0].message.content})
+            conversation_history.append({"role":"assistant","content":response.choices[0].message.content })
 
         st.text("History")
         for i,value in enumerate(conversation_history):
