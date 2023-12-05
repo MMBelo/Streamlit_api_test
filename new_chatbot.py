@@ -6,8 +6,6 @@ import tempfile
 import random
 
 
-
-
 os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
 client = OpenAI(
   api_key=os.environ['OPENAI_API_KEY'],)
@@ -17,19 +15,6 @@ st.title('🤖🍞  Talking toaster AI')
 st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
 
 # Prompt template
-#
-#def answer_template(answer):
-#        return f""" You are an experienced Electric Engineer specializing in household appliances or electronic equipment,
-#        your task is to assist individuals with no technical background in identifying and addressing technical issues.
-#        You will have access to the {answer}, grab this information as knowledge to reply.
-#        Maintain a helpful, friendly, clear, and concise tone throughout. Start by briefly describing the product {product_name} and confirming its equipment and model.
-#        Then, identify the issue and seek clarification with up to two simple, non-technical questions if needed. Provide a straightforward
-#        solution. Highlight common mispractices for the equipment. If the repair is too technical or potentially hazardous, advise seeking
-#        support from the equipment's brand or hiring a specialized technician. Your name is 'Talking Toaster',
-#        Make sure you only introduce yourself the first time. Say you going to take over the funny grandma to answer the questions also mention it only once.."use no more than 100 words."""
-#
-##############################################################################################################
-################################ New code test ###############################################################
 
 def answer_template(answer):
         return f""" You are an experienced Electric Engineer specializing in household appliances or electronic equipment,
@@ -51,8 +36,6 @@ def answer_template_flow(template_flow):
         do not introduce yourself unless you are asked to."use no more than 100 words."""
 
 template_flow = answer_template_flow
-##############################################################################################################
-################################ New code test ###############################################################
 
 picture = st.camera_input("Take a picture", key="unique_picture_key")
 
@@ -74,7 +57,6 @@ if picture:
 
 
 
-
         prompt_template = f"""first, will only anwser the first querie like You are a funny old lady always mad about household appliance malfunctions,
             acknowledge the {product_name} and saying something funny. you will finish the prompt saying,
             'How can i help you my dear?'. Use no more than 100 words."""
@@ -87,7 +69,6 @@ if picture:
 
 
 
-        #st.text_area('Talking Toaster:', "response", height=100)#response1.choices[0].message.content, height=100)
         if 'velhinha' not in st.session_state:
             response = client.chat.completions.create(
                     messages=[{"role": "system", "content": prompt_template}],
@@ -99,21 +80,8 @@ if picture:
             st.session_state['velhinha'] = response.choices[0].message.content
             #conversation_history.append({"role":"assistant","content":st.session_state['velhinha']})
 
-        st.text('Funny Grandma: ' + st.session_state['velhinha'])
+        st.write('Funny Grandma: ' + st.session_state['velhinha'])
 
-        # Maintain conversation history
-        #conversation_history.append(f"AI: {response1.choices[0].message.content}")
-
-        # Keep only the last 6 entries in conversation history
-        #conversation_history = conversation_history[-6:]
-
-        #prompt = st.text_input('Ask the Toaster')
-
-        #st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
-        #st.text_area('Talking Toaster:', response1.choices[0].message.content, height=100)
-
-        #Display conversation history
-        #st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
 
 
         prompt = st.text_input('Ask the Toaster')
@@ -166,13 +134,9 @@ Whining Noise: The dishwasher wash pump motor can make a whining sound when oper
                     messages=conversation_history,
                     model="gpt-3.5-turbo", temperature= 0.1
                 )
-            #conversation_history.append({"role":"assistant","content": response.choices[0].message.content })
 
-
-                #conversation_history.append({"role":"assistant","content": f"Talking Toaster: {response.choices[0].message.content}"})
 
                 st.session_state['Talking Toaster'] = conversation_history.append({"role":"assistant","content": f"Talking Toaster: {response.choices[0].message.content}"})
-
 
 
             user_count = sum(1 for message in conversation_history if "User:" in message['content'])
@@ -184,7 +148,6 @@ Whining Noise: The dishwasher wash pump motor can make a whining sound when oper
                     messages=conversation_history,
                 model="gpt-3.5-turbo", temperature= 0.1
             )
-                #conversation_history.append({"role":"assistant","content": f"Talking Toaster: {response.choices[0].message.content}"})
                 conversation_history.append({"role":"assistant","content": response.choices[0].message.content})
 
         st.text("History")
@@ -193,40 +156,6 @@ Whining Noise: The dishwasher wash pump motor can make a whining sound when oper
                 st.write(value["content"])
 
 
-        #
-        #if response1 is not None:
-        #    prompt = st.text_input('Ask the Toaster')
-        #
-        #    # Combine conversation history
-        #    combined_history = "\n".join(conversation_history)
-        #
-        #    # Send prompt to OpenAI API
-        #    response = client.chat.completions.create(
-        #        messages=[
-        #            {
-        #                "role": "system",
-        #                "content": "You are a helpful AI." + product_name +" persona 2",
-        #            },
-        #            {
-        #                "role": "user",
-        #                "content": combined_history + "\n" + prompt,
-        #            },
-        #        ],
-        #        model="gpt-3.5-turbo",
-        #        temperature=0.2,
-        #    )
-        #
-        #    # Update conversation history with AI response
-        #    conversation_history.append(f"AI: {response.choices[0].message.content}")
-        #
-        #    # Keep only the last 6 entries in conversation history
-        #    conversation_history = conversation_history[-6:]
-        #
-        #    st.text_area('Talking Toaster:', response.choices[0].message.content, height=100)
-        #
-        #    # Display conversation history
-        #    st.text_area("Conversation History", "\n".join(conversation_history), height=300, key="unique_conversation_key")
-        #
 else:
     if 'product_name' in st.session_state:
         del st.session_state["product_name"]
