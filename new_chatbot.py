@@ -17,6 +17,19 @@ st.title('🤖🍞  Talking toaster AI')
 st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
 
 # Prompt template
+#
+#def answer_template(answer):
+#        return f""" You are an experienced Electric Engineer specializing in household appliances or electronic equipment,
+#        your task is to assist individuals with no technical background in identifying and addressing technical issues.
+#        You will have access to the {answer}, grab this information as knowledge to reply.
+#        Maintain a helpful, friendly, clear, and concise tone throughout. Start by briefly describing the product {product_name} and confirming its equipment and model.
+#        Then, identify the issue and seek clarification with up to two simple, non-technical questions if needed. Provide a straightforward
+#        solution. Highlight common mispractices for the equipment. If the repair is too technical or potentially hazardous, advise seeking
+#        support from the equipment's brand or hiring a specialized technician. Your name is 'Talking Toaster',
+#        Make sure you only introduce yourself the first time. Say you going to take over the funny grandma to answer the questions also mention it only once.."use no more than 100 words."""
+#
+##############################################################################################################
+################################ New code test ###############################################################
 
 def answer_template(answer):
         return f""" You are an experienced Electric Engineer specializing in household appliances or electronic equipment,
@@ -28,8 +41,18 @@ def answer_template(answer):
         support from the equipment's brand or hiring a specialized technician. Your name is 'Talking Toaster',
         Make sure you only introduce yourself the first time. Say you going to take over the funny grandma to answer the questions also mention it only once.."use no more than 100 words."""
 
+def answer_template_flow(template_flow):
+        return f""" You are an experienced Electric Engineer specializing in household appliances or electronic equipment,
+        your task is to assist individuals with no technical background in identifying and addressing technical issues.
+        You will have access to the {answer} grab this information as knowledge to reply. Use the conversation_history to have context.
+        Maintain a helpful, friendly, clear, and concise tone throughout.
+        If the repair is too technical or potentially hazardous, advise seeking
+        support from the equipment's brand or hiring a specialized technician. Your name is 'Talking Toaster',
+        do not introduce yourself unless you are asked to."use no more than 100 words."""
 
-
+template_flow = answer_template_flow
+##############################################################################################################
+################################ New code test ###############################################################
 
 picture = st.camera_input("Take a picture", key="unique_picture_key")
 
@@ -95,7 +118,7 @@ if picture:
 
         prompt = st.text_input('Ask the Toaster')
         if prompt:
-            conversation_history.append({"role":"user","content":prompt})
+            conversation_history.append({"role":"user","content": f"User: {prompt}"})
 
             #question : My dishwasher is making an unusual noise.
 
@@ -136,17 +159,39 @@ Swishing or Sloshing: The dishwasher will make a swishing noise as the water is 
 
 Whining Noise: The dishwasher wash pump motor can make a whining sound when operating. This is normal."""
 
-            conversation_history.append({"role":"system","content": answer_template(answer)})
-            response = client.chat.completions.create(
+            if 'Talking Toaster' not in st.session_state:
+
+                conversation_history.append({"role":"system","content": answer_template(answer)})
+                response = client.chat.completions.create(
+                    messages=conversation_history,
+                    model="gpt-3.5-turbo", temperature= 0.1
+                )
+            #conversation_history.append({"role":"assistant","content": response.choices[0].message.content })
+
+
+                #conversation_history.append({"role":"assistant","content": f"Talking Toaster: {response.choices[0].message.content}"})
+
+                st.session_state['Talking Toaster'] = conversation_history.append({"role":"assistant","content": f"Talking Toaster: {response.choices[0].message.content}"})
+
+
+
+            user_count = sum(1 for message in conversation_history if "User:" in message['content'])
+            if user_count >= 2:
+            # Do something...
+
+                conversation_history.append({"role":"system","content": answer_template_flow(template_flow)})
+                response = client.chat.completions.create(
                     messages=conversation_history,
                 model="gpt-3.5-turbo", temperature= 0.1
             )
-            conversation_history.append({"role":"assistant","content":response.choices[0].message.content })
+                #conversation_history.append({"role":"assistant","content": f"Talking Toaster: {response.choices[0].message.content}"})
+                conversation_history.append({"role":"assistant","content": response.choices[0].message.content})
 
         st.text("History")
         for i,value in enumerate(conversation_history):
             if value['role'] != 'system':
                 st.write(value["content"])
+
 
         #
         #if response1 is not None:
@@ -191,3 +236,5 @@ else:
         del st.session_state['conversation_history']
     if "velhinha" in st.session_state:
         del st.session_state['velhinha']
+    if "Talking Toaster" in st.session_state:
+        del st.session_state['Talking Toaster']
