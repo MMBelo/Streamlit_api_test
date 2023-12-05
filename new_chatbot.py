@@ -4,7 +4,7 @@ import openai
 from openai import OpenAI
 import tempfile
 import random
-
+import numpy as np
 
 os.environ['OPENAI_API_KEY'] = st.secrets["key1"]
 client = OpenAI(
@@ -56,7 +56,6 @@ if picture:
         st.session_state['clicked'] = True
 
 
-
         prompt_template = f"""first, will only anwser the first querie like You are a funny old lady always mad about household appliance malfunctions,
             acknowledge the {product_name} and saying something funny. you will finish the prompt saying,
             'How can i help you my dear?'. Use no more than 100 words."""
@@ -82,6 +81,26 @@ if picture:
 
         st.write('Funny Grandma: ' + st.session_state['velhinha'])
 
+
+##########################################################################################
+##################################AUdio input############################################
+
+        # Create speech synthesis
+        response = client.audio.speech.create(
+            model="tts-1",
+            voice="shimmer",
+
+            ### use the text from the input box###
+            input= st.session_state['velhinha'],
+        )
+
+        # Save the audio to a file
+        audio_file_path = "output.mp3"
+        response.stream_to_file(audio_file_path)
+
+        # Play the audio file
+        st.audio(audio_file_path, format='audio/mp3')
+##########################################################################################
 
 
         prompt = st.text_input('Ask the Toaster')
@@ -154,6 +173,7 @@ Whining Noise: The dishwasher wash pump motor can make a whining sound when oper
         for i,value in enumerate(conversation_history):
             if value['role'] != 'system':
                 st.write(value["content"])
+
 
 
 else:
